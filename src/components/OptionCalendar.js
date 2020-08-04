@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
-import { format, addMonths, endOfMonth, endOfWeek, subMonths, startOfWeek, startOfMonth, endOfYesterday, isSameMonth, addDays, isSameDay, isAfter, isBefore, parseISO } from 'date-fns';
+import { format, addMonths, endOfMonth, endOfWeek, subMonths, startOfWeek, startOfMonth, endOfYesterday, isSameMonth, addDays, isSameDay, isAfter, isBefore, parse } from 'date-fns';
 import ruLocale from 'date-fns/locale/ru';
 
 import Icon28ArrowLeftOutline from '@vkontakte/icons/dist/28/arrow_left_outline';
@@ -9,7 +9,7 @@ import Icon28BlockOutline from '@vkontakte/icons/dist/28/block_outline';
 import Icon28RemoveCircleOutline from '@vkontakte/icons/dist/28/remove_circle_outline';
 
 
-export default class OptionCalendar extends PureComponent {
+export default class OptionCalendar extends Component {
     constructor(props) {
       super(props)
       this.state = {
@@ -77,15 +77,17 @@ export default class OptionCalendar extends PureComponent {
           const cloneDay = format(day,'yyyy-MM-dd')
           const isToday = (isSameDay(day, currentDate))
           const isSelected = blockedDays.includes(cloneDay)
+          const period_0 = parse( period[0], 'yyyy-MM-dd', new Date(), {locale: ruLocale})
+          const period_1 = parse( period[1], 'yyyy-MM-dd', new Date(), {locale: ruLocale})
   
           days.push(
             <div
               className={`col calendar_body_cell calendar_body_cell_option
-                ${ (!isSameMonth(day, monthStart)) ? "another" : "" }
-                ${ (isSelected) ? "unselected" : "" }
-                ${ (!weekDay[i]) ? "freeday" : "" }
-                ${ (isBefore(day, endOfYesterday(currentDate))) ? "pastday" : "" }
-                ${ (isBefore(day, parseISO(period[0])) || isAfter(day, parseISO(period[1])) ) ? "endday" : "" }
+                ${ !isSameMonth(day, monthStart) ? "another" : "" }
+                ${ isSelected ? "unselected" : "" }
+                ${ !weekDay[i] ? "freeday" : "" }
+                ${ isBefore(day, endOfYesterday(currentDate)) ? "pastday" : "" }
+                ${ isBefore(day, period_0) || isAfter(day, period_1) ? "endday" : "" }
               `}
               key={ cloneDay }
               onClick={() => { this.onDateClick(cloneDay) } }

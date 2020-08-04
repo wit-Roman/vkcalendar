@@ -75,18 +75,19 @@ body {
 .inline {
   display: inline-block;
 }
-.PanelHeader-mob-settingButton .PanelHeader__in {
-  justify-content: flex-start;
-  margin-right: 100px;
+.inline-ava {
+  display: inline-block;
+  float: left;
 }
 .calendar {
   display: block;
   position: relative;
   width: 100%;
-  background-color: #fff;
+  /*background-color: #fff;*/
   /*border: 1px solid #e7e8ec;*/
   box-sizing: border-box;
   padding-bottom: 16px;
+  z-index: 0;
 }
 .calendar_header {
   text-transform: uppercase;
@@ -158,7 +159,7 @@ body {
   height: 96px;
   border-right: 2px solid #818181;
   overflow: hidden;
-  background-color: #fff;
+  /*background-color: #fff;*/
   box-sizing: border-box;
 }
 .calendar_body_cell:last-child {
@@ -204,6 +205,9 @@ body {
   margin-left: auto;
   margin-right: 8px;
 }
+body[scheme="space_gray"] .calendar_body_cell_number {
+  color: #dadada;
+}
 .calendar_body_cell_number.today {
   color: #cd2626;
 }
@@ -245,25 +249,51 @@ body {
   -webkit-animation-name: fadeIn;
   animation-name: fadeIn;
 }
-.calendar .unselected {
-  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(235, 235, 235, 0.4) 8px, rgba(235, 235, 235, 0.4) 16px);
-  background-color: rgba(240, 240, 240, 0.3);
-}
-.calendar_body > .row:nth-child(2n+1) .unselected {
-  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(215, 215, 215, 0.4) 8px, rgba(215, 215, 215, 0.4) 16px);
-}
-.calendar .freeday {
-  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(235, 235, 235, 0.4) 8px, rgba(235, 235, 235, 0.4) 16px);
-  background-color: rgba(240, 240, 240, 0.3);
-}
-.calendar .pastday {
-  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(235, 235, 235, 0.4) 8px, rgba(235, 235, 235, 0.4) 16px);
-  background-color: rgba(240, 240, 240, 0.3);
-}
+.calendar .unselected,
+.calendar .freeday,
+.calendar .pastday,
 .calendar .endday {
-  background: repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(235, 235, 235, 0.4) 8px, rgba(235, 235, 235, 0.4) 16px);
-  background-color: rgba(240, 240, 240, 0.3);
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(230, 230, 230, 0.4) 8px,
+    rgba(230, 230, 230, 0.4) 16px
+  );
+  background-color: rgba(240, 240, 240, 0.1);
 }
+.calendar_body > .row:nth-child(2n + 1) .unselected {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(215, 215, 215, 0.4) 8px,
+    rgba(215, 215, 215, 0.4) 16px
+  );
+}
+body[scheme="space_gray"] .calendar .unselected,
+body[scheme="space_gray"] .calendar .freeday,
+body[scheme="space_gray"] .calendar .pastday,
+body[scheme="space_gray"] .calendar .endday {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(230, 230, 230, 0.3) 8px,
+    rgba(230, 230, 230, 0.2) 16px
+  );
+  background-color: rgba(240, 240, 240, 0.04);
+}
+body[scheme="space_gray"] .calendar_body > .row:nth-child(2n + 1) .unselected {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(215, 215, 215, 0.2) 8px,
+    rgba(215, 215, 215, 0.2) 16px
+  );
+}
+
 .calendar .main .unselected,
 .calendar .main .freeday,
 .calendar .main .pastday,
@@ -276,11 +306,6 @@ body {
   pointer-events: none;
 }
 
-.setting_wrap {
-  height: 572px;
-  overflow: hidden;
-  background-color: #fff;
-}
 .setting_wrap .calendar_body_cell {
   height: 80px;
   cursor: pointer;
@@ -301,59 +326,66 @@ body {
   margin-left: auto;
 }
 
-.welcome {
-  background-color: #fff;
-  line-height: 1.3;
+.welcome_logo {
+  width: 144px;
+  padding-right: 16px;
 }
-.welcome_section_title {
-  text-align: center;
-  position: relative;
-  -webkit-justify-content: center;
-  -webkit-box-justify-content: center;
-  -moz-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+.welcome_title {
+  white-space: normal;
+  margin-bottom: 16px;
 }
-.welcome .section_description {
+.welcome_description {
+  white-space: normal;
   color: #cd2626;
 }
-.welcome .logo {
-  display: inline-block;
-  padding-right: 32px;
+.welcome_text {
+  text-indent: 32px;
+  line-height: 1.5;
 }
-.welcome .logo img {
-  width: 120px;
-}
-.welcome ul {
+.welcome_list {
+  margin: 0;
+  padding: 2px 8px 4px 16px;
   list-style-type: decimal;
-  padding-left: 32px;
 }
-.welcome p {
-  padding: 8px 16px;
-}
-.welcome img {
+.welcome_images-wrap img {
   max-width: 100%;
 }
-.welcome .images-wrap > div {
-  display: inline-block;
-  margin: 0 16px;
+.welcome_list_cell_current {
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 8px,
+    rgba(215, 215, 215, 0.2) 8px,
+    rgba(215, 215, 215, 0.2) 16px
+  );
+}
+.open-screens-tab.active + div {
+  display: none;
+}
+.open-screens-tab {
+  cursor: pointer;
+  text-decoration: underline;
+  margin: 4px 0;
+}
+.open-screens-tab:hover {
+  text-decoration: none;
 }
 
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
- }
+  }
   to {
     opacity: 1;
- }
+  }
 }
 @keyframes fadeIn {
   from {
     opacity: 0;
- }
+  }
   to {
     opacity: 1;
- }
+  }
 }
 
 @media screen and (max-width: 480px) {
@@ -367,8 +399,10 @@ body {
   .calendar_body_cell_icon {
     position: absolute;
     bottom: -4px;
-    width: 16px;
     margin-left: 1px;
+  }
+  .setting_wrap .calendar_body_cell_icon {
+    bottom: 0;
   }
   .calendar_body_cell_control {
     height: 36px;
@@ -390,12 +424,15 @@ body {
   .calendar_body_cell_item {
     pointer-events: none;
   }
-  .welcome .logo {
-    padding-right: 0;
-    margin: 32px 0 0 12px;
+  .welcome_logo {
+    width: 96px;
+    padding-right: 8px;
   }
-}
-
-.vkAppHeader {
-  display: none !important;
+  #root .Cell__children,
+  #settings .Cell__children {
+    white-space: normal;
+  }
+  #settings .Cell__indicator {
+    overflow: visible;
+  }
 }
