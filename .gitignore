@@ -1,3 +1,6 @@
+# API
+ecosystem.config.js
+/server/connects.js
 # Logs
 logs
 *.log
@@ -13,6 +16,7 @@ package-lock.json
 
 # Prod Bundle
 /build
+bundle.zip
 
 .vscode
 .idea
